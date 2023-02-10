@@ -1,14 +1,13 @@
 #!/bin/bash
-echo
+numMatriculas=`cat notas.txt | tail -n+2 | wc -l`
 
-echo -n "La calificación de $1 es un: "
-
-if [ $2 -lt 5 ]
+for i in `seq 1 $numMatriculas`; do
+i=$((i+1))
+nombre=`cat notas.txt | awk '{print $1}' | head -$i | tail -1`
+modulo=`cat notas.txt | awk '{print $2}' | head -$i | tail -1`
+nota=`cat notas.txt | awk '{print $3}' | head -$i | tail -1`
+if [ $nombre = $1 ] && [ $modulo = $2 ]
 then
-echo "suspendido"
-elif [ $2 -ge 9 ]
-then
-echo "sobresaliente"
-else
-echo "aprobado"
+echo "El alumno $1 del módulo $2 tiene un: $nota"
 fi
+done
